@@ -1,282 +1,197 @@
 <!DOCTYPE html>
-<html lang="sw">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Boniphace</title>
+  <title>Boniphace Website</title>
   <style>
-    /* Mwonekano wa mwili */
-    body, html {
+    /* Reset and base styles */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
       height: 100%;
-      background-color: #111;
-      color: #fff;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #111;
+      color: #fff;
       overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
     }
 
-    /* Container ya logo na channel */
-    #logo-container,
-    #channels-container {
-      width: 100%;
-      max-width: 600px;
+    /* Overlay container for welcome animation */
+    #welcome-overlay {
+      position: fixed;
+      inset: 0;
+      background: #222;
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
+      z-index: 1000;
       flex-direction: column;
+      text-align: center;
+      padding: 1rem;
     }
 
-    /* Logo Boniphace inabadilisha rangi (animation) */
-    #logo {
-      font-size: 5rem;
-      font-weight: 900;
-      user-select: none;
-      animation: colorCycle 10s linear infinite;
-      transition: transform 1s ease;
-      cursor: default;
-    }
-
-    /* Animation ya kubadilisha rangi */
-    @keyframes colorCycle {
-      0%   { color: #e63946; }
-      20%  { color: #f1faee; }
-      40%  { color: #a8dadc; }
-      60%  { color: #457b9d; }
-      80%  { color: #1d3557; }
-      100% { color: #e63946; }
-    }
-
-    /* Animation ya kushuka kwa logo */
-    .logo-slide-up {
-      transform: translateY(-150%);
-      opacity: 0;
-    }
-
-    /* Makundi ya channel yanasimama chini */
-    #channels-container {
-      display: none;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: auto;
-      margin-bottom: 2rem;
-      width: 100%;
-      max-width: 640px;
-      padding: 0 1rem;
-    }
-
-    .channel-wrapper {
-      position: relative;
-      width: 100%;
-      height: 70px;
-      border-radius: 12px;
-      overflow: hidden;
-      cursor: default;
-      user-select: none;
-    }
-
-    /* Canvas ya particles inajaza channel */
-    .channel-canvas {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-      border-radius: 12px;
-    }
-
-    /* Channel content juu ya particles */
-    .channel-content {
-      position: relative;
-      z-index: 2;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* Welcome text styles and animation */
+    #welcome-text {
+      font-size: 2.5rem;
       font-weight: 700;
-      font-size: 1.5rem;
-      color: white;
-      animation: channelColorCycle 10s linear infinite;
+      background: linear-gradient(90deg, #00f, #0ff, #00f);
+      background-size: 200% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: colorShift 4s linear infinite alternate;
+      max-width: 90vw;
+    }
+
+    /* Color shifting gradient animation */
+    @keyframes colorShift {
+      0% {
+        background-position: 0% 0%;
+      }
+      100% {
+        background-position: 100% 0%;
+      }
+    }
+
+    /* After welcome fades out, body scroll enabled */
+    body.loaded {
+      overflow-y: auto;
+    }
+
+    /* Fade out animation for welcome overlay */
+    .fade-out {
+      animation: fadeOut 1s forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    /* Main content styles */
+    main {
+      padding: 2rem 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      text-align: center;
+      font-size: 2rem;
+      color: #0ff;
+    }
+
+    /* Channel container: vertical scroll */
+    #channels {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-height: 70vh;
+      overflow-y: scroll;
+      padding-right: 0.5rem;
+      scroll-behavior: smooth;
+    }
+
+    /* Style for scrollbar (WebKit) */
+    #channels::-webkit-scrollbar {
+      width: 8px;
+    }
+    #channels::-webkit-scrollbar-thumb {
+      background-color: #0ff;
+      border-radius: 4px;
+    }
+    #channels::-webkit-scrollbar-track {
+      background: #222;
+    }
+
+    /* Channel box styles */
+    .channel-box {
+      flex: 0 0 auto;
       border-radius: 12px;
+      padding: 1.5rem 2rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #111;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.5s ease;
+      box-shadow: 0 4px 8px rgb(0 255 255 / 0.3);
+      text-align: center;
     }
 
-    /* Rangi za channel zinabadilika kama logo lakini zinachelewa */
-    #channels-container .channel-content:nth-child(1) {
-      animation-delay: 0s;
-    }
-    #channels-container .channel-content:nth-child(2) {
-      animation-delay: 2s;
-    }
-    #channels-container .channel-content:nth-child(3) {
-      animation-delay: 4s;
-    }
-    #channels-container .channel-content:nth-child(4) {
-      animation-delay: 6s;
-    }
-    #channels-container .channel-content:nth-child(5) {
-      animation-delay: 8s;
+    /* Distinct background colors cycling */
+    .color1 { background-color: #00ffff; }
+    .color2 { background-color: #ff6f61; }
+    .color3 { background-color: #8bc34a; }
+    .color4 { background-color: #ffca28; }
+    .color5 { background-color: #7e57c2; }
+
+    /* On hover, slightly brighten */
+    .channel-box:hover {
+      filter: brightness(1.15);
     }
 
-    @keyframes channelColorCycle {
-      0%   { background-color: #e63946; }
-      20%  { background-color: #f1faee; color: #222; }
-      40%  { background-color: #a8dadc; color: white; }
-      60%  { background-color: #457b9d; }
-      80%  { background-color: #1d3557; }
-      100% { background-color: #e63946; }
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .channel-box {
+        font-size: 1rem;
+        padding: 1rem 1.5rem;
+      }
+      #welcome-text {
+        font-size: 1.8rem;
+      }
     }
 
-    /* Responsive */
-    @media (max-width: 480px) {
-      #logo {
-        font-size: 3.5rem;
-      }
-      .channel-wrapper {
-        height: 60px;
-      }
-      .channel-content {
-        font-size: 1.2rem;
-      }
-    }
   </style>
 </head>
 <body>
-  <!-- Logo container -->
-  <div id="logo-container" aria-label="Logo ya Boniphace" role="banner">
-    <div id="logo" aria-live="polite" aria-atomic="true" aria-relevant="text">Boniphace</div>
-  </div>
 
-  <!-- Channels container -->
-  <section id="channels-container" aria-label="Makundi ya channel yanayobadilisha rangi na particles">
-    <div class="channel-wrapper" role="region" aria-label="Channel ya kwanza">
-      <canvas class="channel-canvas"></canvas>
-      <div class="channel-content">Channel 1</div>
-    </div>
-    <div class="channel-wrapper" role="region" aria-label="Channel ya pili">
-      <canvas class="channel-canvas"></canvas>
-      <div class="channel-content">Channel 2</div>
-    </div>
-    <div class="channel-wrapper" role="region" aria-label="Channel ya tatu">
-      <canvas class="channel-canvas"></canvas>
-      <div class="channel-content">Channel 3</div>
-    </div>
-    <div class="channel-wrapper" role="region" aria-label="Channel ya nne">
-      <canvas class="channel-canvas"></canvas>
-      <div class="channel-content">Channel 4</div>
-    </div>
-    <div class="channel-wrapper" role="region" aria-label="Channel ya tano">
-      <canvas class="channel-canvas"></canvas>
-      <div class="channel-content">Channel 5</div>
-    </div>
+  <!-- Welcome Overlay with dynamic gradient text -->
+  <section id="welcome-overlay" aria-label="Welcome message">
+    <h1 id="welcome-text" aria-live="polite" aria-atomic="true">Welcome to Boniphace Website</h1>
   </section>
 
-  <!-- Muziki unaochezwa moja kwa moja -->
-  <audio id="background-audio" src="https://files.catbox.moe/yzsgvh.mp3" autoplay muted loop></audio>
+  <!-- Main content with channels -->
+  <main aria-label="Channels Section" tabindex="-1">
+    <h1>Channels</h1>
+    <nav id="channels" aria-label="List of channels" role="list">
+      <!-- Channel boxes will be inserted here -->
+      <div class="channel-box color1" role="listitem" tabindex="0">Channel One</div>
+      <div class="channel-box color2" role="listitem" tabindex="0">Channel Two</div>
+      <div class="channel-box color3" role="listitem" tabindex="0">Channel Three</div>
+      <div class="channel-box color4" role="listitem" tabindex="0">Channel Four</div>
+      <div class="channel-box color5" role="listitem" tabindex="0">Channel Five</div>
+    </nav>
+  </main>
+
+  <!-- Audio element for autoplay music -->
+  <audio id="bg-music" src="https://files.catbox.moe/yzsgvh.mp3" autoplay loop preload="auto" aria-label="Background music"></audio>
 
   <script>
-    // Baada ya sekunde 5, fanya transition kutoka logo kwenda makundi ya channel
-    const logoContainer = document.getElementById('logo-container');
-    const channelsContainer = document.getElementById('channels-container');
-    const logo = document.getElementById('logo');
-    const audio = document.getElementById('background-audio');
+    // Script to handle welcome overlay display and fade out with timing
+    document.addEventListener('DOMContentLoaded', () => {
+      const welcomeOverlay = document.getElementById('welcome-overlay');
 
-    // Kutoa muted ili muziki uweze kusikika, baadaye kujaribu kucheza tena
-    audio.muted = false;
-    audio.play().catch(() => {
-      // Hii itakusaidia kama browser hairuhusu autoplay bila mute
-      audio.muted = true;
-      audio.play();
-    });
+      // Duration to show welcome message (in milliseconds)
+      const welcomeDuration = 4000;
 
-    // Function ya kuonyesha channels na kuficha logo
-    function showChannels() {
-      logo.classList.add('logo-slide-up');
+      // After welcomeDuration, fade out overlay and enable scrolling
       setTimeout(() => {
-        logoContainer.style.display = 'none';
-        channelsContainer.style.display = 'flex';
-        initParticles(); // Anzisha particle flow kwenye channels
-      }, 1000); // Response kwa transition ya 1s
-    }
-
-    // Tumia setTimeout kuwaita baada ya 5 sekunde
-    setTimeout(showChannels, 5000);
-
-    // PARTICLES LOGIC
-    function initParticles() {
-      const channels = document.querySelectorAll('.channel-wrapper');
-
-      channels.forEach(channel => {
-        const canvas = channel.querySelector('canvas.channel-canvas');
-        const ctx = canvas.getContext('2d');
-
-        // Saizi ya canvas inapaswa kufanana na div ya channel
-        function resize() {
-          canvas.width = channel.clientWidth;
-          canvas.height = channel.clientHeight;
-        }
-        resize();
-
-        // Particle class
-        class Particle {
-          constructor() {
-            this.reset();
-          }
-          reset() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2 + 1;
-            this.speed = 0.3 + Math.random() * 0.7;
-            this.alpha = Math.random() * 0.5 + 0.3;
-          }
-          update() {
-            this.y += this.speed;
-            if (this.y > canvas.height) {
-              this.y = 0;
-              this.x = Math.random() * canvas.width;
-              this.alpha = Math.random() * 0.5 + 0.3;
-            }
-          }
-          draw() {
-            ctx.beginPath();
-            ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
-            ctx.shadowColor = 'white';
-            ctx.shadowBlur = 5;
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-          }
-        }
-
-        // Create particles
-        const particles = [];
-        const particleCount = 30;
-
-        for(let i=0; i < particleCount; i++) {
-          particles.push(new Particle());
-        }
-
-        // Animation loop
-        function animate() {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          particles.forEach(p => {
-            p.update();
-            p.draw();
-          });
-          requestAnimationFrame(animate);
-        }
-        animate();
-
-        // Resize canvas on window resize
-        window.addEventListener('resize', () => {
-          resize();
-        });
-      });
-    }
+        welcomeOverlay.classList.add('fade-out');
+        // After fade out animation completes (1s), remove overlay from DOM and enable scrolling
+        setTimeout(() => {
+          welcomeOverlay.remove();
+          document.body.classList.add('loaded');
+          // Focus main content for accessibility
+          document.querySelector('main').focus();
+        }, 1000);
+      }, welcomeDuration);
+    });
   </script>
 </body>
 </html>
