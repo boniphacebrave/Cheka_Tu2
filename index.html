@@ -136,7 +136,6 @@
         }
 
         .channel {
-            background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 25px;
             text-align: center;
@@ -150,6 +149,8 @@
             justify-content: center;
             align-items: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
         }
 
         .channel:hover {
@@ -157,19 +158,56 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
 
+        .channel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .channel:hover::before {
+            left: 100%;
+        }
+
         .channel i {
             font-size: 3rem;
             margin-bottom: 15px;
+            z-index: 2;
         }
 
         .channel h3 {
             font-size: 1.5rem;
             margin-bottom: 10px;
+            z-index: 2;
         }
 
         .channel p {
             font-size: 1rem;
             color: #e6e6e6;
+            z-index: 2;
+        }
+
+        .bofya-btn {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            margin-top: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            z-index: 2;
+        }
+
+        .bofya-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
         }
 
         /* Contacts Section */
@@ -235,6 +273,23 @@
             font-size: 1rem;
             color: #e6e6e6;
             font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .contact-bofya {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .contact-bofya:hover {
+            background: #128C7E;
+            transform: scale(1.05);
         }
 
         /* Music Player */
@@ -326,55 +381,65 @@
 
         <!-- Channels Section -->
         <div class="channels-container">
-            <div class="channel">
+            <div class="channel" style="background: rgba(255, 99, 132, 0.3);">
                 <i class="fas fa-music"></i>
                 <h3>Music Channel</h3>
                 <p>Latest hits and trending songs</p>
+                <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel">
+            <div class="channel" style="background: rgba(54, 162, 235, 0.3);">
                 <i class="fas fa-film"></i>
                 <h3>Movies Channel</h3>
                 <p>Blockbuster movies and series</p>
+                <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel">
+            <div class="channel" style="background: rgba(255, 206, 86, 0.3);">
                 <i class="fas fa-gamepad"></i>
                 <h3>Gaming Channel</h3>
                 <p>Live streams and gaming content</p>
+                <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel">
+            <div class="channel" style="background: rgba(75, 192, 192, 0.3);">
                 <i class="fas fa-newspaper"></i>
                 <h3>News Channel</h3>
                 <p>Latest news and updates</p>
+                <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel">
+            <div class="channel" style="background: rgba(153, 102, 255, 0.3);">
                 <i class="fas fa-utensils"></i>
                 <h3>Food Channel</h3>
                 <p>Recipes and cooking tutorials</p>
+                <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel">
+            <div class="channel" style="background: rgba(255, 159, 64, 0.3);">
                 <i class="fas fa-basketball-ball"></i>
                 <h3>Sports Channel</h3>
                 <p>Live matches and highlights</p>
+                <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel">
+            <div class="channel" style="background: rgba(255, 99, 71, 0.3);">
                 <i class="fas fa-laugh"></i>
                 <h3>Comedy Channel</h3>
                 <p>Funny videos and stand-up</p>
+                <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel">
+            <div class="channel" style="background: rgba(50, 205, 50, 0.3);">
                 <i class="fas fa-car"></i>
                 <h3>Auto Channel</h3>
                 <p>Car reviews and modifications</p>
+                <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel">
+            <div class="channel" style="background: rgba(30, 144, 255, 0.3);">
                 <i class="fas fa-graduation-cap"></i>
                 <h3>Education Channel</h3>
                 <p>Learning and tutorials</p>
+                <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel">
+            <div class="channel" style="background: rgba(220, 20, 60, 0.3);">
                 <i class="fas fa-heart"></i>
                 <h3>Health Channel</h3>
                 <p>Fitness and wellness tips</p>
+                <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
         </div>
 
@@ -387,24 +452,28 @@
                     <h3>Boniphace M.</h3>
                     <p>+255 789 123 456</p>
                     <p class="contact-role">Founder & CEO</p>
+                    <a href="https://wa.me/255794373476" target="_blank" class="contact-bofya">Bofya</a>
                 </div>
                 <div class="contact-card">
                     <i class="fas fa-user-cog"></i>
                     <h3>Sarah J.</h3>
                     <p>+255 787 654 321</p>
                     <p class="contact-role">Technical Director</p>
+                    <a href="https://wa.me/255794373476" target="_blank" class="contact-bofya">Bofya</a>
                 </div>
                 <div class="contact-card">
                     <i class="fas fa-user-headset"></i>
                     <h3>Michael K.</h3>
                     <p>+255 785 111 222</p>
                     <p class="contact-role">Support Manager</p>
+                    <a href="https://wa.me/255794373476" target="_blank" class="contact-bofya">Bofya</a>
                 </div>
                 <div class="contact-card">
                     <i class="fas fa-user-edit"></i>
                     <h3>Grace L.</h3>
                     <p>+255 784 333 444</p>
                     <p class="contact-role">Content Manager</p>
+                    <a href="https://wa.me/255794373476" target="_blank" class="contact-bofya">Bofya</a>
                 </div>
             </div>
         </div>
@@ -595,28 +664,6 @@
                     muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
                 }
             });
-            
-            // Channel color changing effect
-            let colorIndex = 0;
-            const colors = [
-                'rgba(255, 154, 158, 0.2)',
-                'rgba(250, 208, 196, 0.2)',
-                'rgba(161, 196, 253, 0.2)',
-                'rgba(152, 251, 152, 0.2)',
-                'rgba(255, 215, 0, 0.2)',
-                'rgba(216, 191, 216, 0.2)',
-                'rgba(173, 216, 230, 0.2)',
-                'rgba(255, 182, 193, 0.2)',
-                'rgba(240, 128, 128, 0.2)',
-                'rgba(135, 206, 250, 0.2)'
-            ];
-            
-            setInterval(function() {
-                channels.forEach(channel => {
-                    channel.style.background = colors[colorIndex];
-                });
-                colorIndex = (colorIndex + 1) % colors.length;
-            }, 3000);
         });
     </script>
 </body>
