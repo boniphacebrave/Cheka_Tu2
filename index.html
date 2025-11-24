@@ -1,197 +1,635 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Boniphace Website</title>
-  <style>
-    /* Reset and base styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body, html {
-      height: 100%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #111;
-      color: #fff;
-      overflow-x: hidden;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chennai WhatsApp Channel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    /* Overlay container for welcome animation */
-    #welcome-overlay {
-      position: fixed;
-      inset: 0;
-      background: #222;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      flex-direction: column;
-      text-align: center;
-      padding: 1rem;
-    }
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
 
-    /* Welcome text styles and animation */
-    #welcome-text {
-      font-size: 2.5rem;
-      font-weight: 700;
-      background: linear-gradient(90deg, #00f, #0ff, #00f);
-      background-size: 200% 100%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: colorShift 4s linear infinite alternate;
-      max-width: 90vw;
-    }
+        /* Particle Container */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
 
-    /* Color shifting gradient animation */
-    @keyframes colorShift {
-      0% {
-        background-position: 0% 0%;
-      }
-      100% {
-        background-position: 100% 0%;
-      }
-    }
+        /* Welcome Screen */
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #0f3460, #1a1a2e, #16213e);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
 
-    /* After welcome fades out, body scroll enabled */
-    body.loaded {
-      overflow-y: auto;
-    }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-    /* Fade out animation for welcome overlay */
-    .fade-out {
-      animation: fadeOut 1s forwards;
-    }
+        .logo {
+            font-size: 4.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #a1c4fd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            animation: pulse 2s infinite alternate;
+        }
 
-    @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
+        .subtitle {
+            font-size: 1.5rem;
+            margin-top: 10px;
+            color: #e6e6e6;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
 
-    /* Main content styles */
-    main {
-      padding: 2rem 1rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
+        .loading-bar {
+            width: 300px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 30px;
+        }
 
-    h1 {
-      margin-bottom: 1rem;
-      text-align: center;
-      font-size: 2rem;
-      color: #0ff;
-    }
+        .loading-progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff9a9e, #fad0c4, #a1c4fd);
+            border-radius: 10px;
+            animation: loading 3s ease-in-out forwards;
+        }
 
-    /* Channel container: vertical scroll */
-    #channels {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      max-height: 70vh;
-      overflow-y: scroll;
-      padding-right: 0.5rem;
-      scroll-behavior: smooth;
-    }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
 
-    /* Style for scrollbar (WebKit) */
-    #channels::-webkit-scrollbar {
-      width: 8px;
-    }
-    #channels::-webkit-scrollbar-thumb {
-      background-color: #0ff;
-      border-radius: 4px;
-    }
-    #channels::-webkit-scrollbar-track {
-      background: #222;
-    }
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
 
-    /* Channel box styles */
-    .channel-box {
-      flex: 0 0 auto;
-      border-radius: 12px;
-      padding: 1.5rem 2rem;
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: #111;
-      cursor: pointer;
-      user-select: none;
-      transition: background-color 0.5s ease;
-      box-shadow: 0 4px 8px rgb(0 255 255 / 0.3);
-      text-align: center;
-    }
+        /* Main Content */
+        #main-content {
+            display: none;
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-    /* Distinct background colors cycling */
-    .color1 { background-color: #00ffff; }
-    .color2 { background-color: #ff6f61; }
-    .color3 { background-color: #8bc34a; }
-    .color4 { background-color: #ffca28; }
-    .color5 { background-color: #7e57c2; }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
 
-    /* On hover, slightly brighten */
-    .channel-box:hover {
-      filter: brightness(1.15);
-    }
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #a1c4fd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
 
-    /* Responsive adjustments */
-    @media (max-width: 600px) {
-      .channel-box {
-        font-size: 1rem;
-        padding: 1rem 1.5rem;
-      }
-      #welcome-text {
-        font-size: 1.8rem;
-      }
-    }
+        .header p {
+            font-size: 1.2rem;
+            color: #e6e6e6;
+        }
 
-  </style>
+        /* Chennai Info Section */
+        .chennai-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .chennai-card {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .chennai-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #ffcc00;
+        }
+
+        .chennai-card p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .chennai-card ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .chennai-card li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .chennai-card li:before {
+            content: "▸";
+            color: #ffcc00;
+            position: absolute;
+            left: -20px;
+        }
+
+        /* WhatsApp Channel Section */
+        .whatsapp-section {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .whatsapp-icon {
+            font-size: 4rem;
+            color: #25D366;
+            margin-bottom: 20px;
+        }
+
+        .whatsapp-section h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .whatsapp-section p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .whatsapp-btn {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Channels Section */
+        .channels-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .channel {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .channel:hover {
+            transform: translateY(-10px);
+        }
+
+        .channel i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .channel h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .channel p {
+            font-size: 1rem;
+            color: #e6e6e6;
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .music-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .music-controls button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .music-controls button:hover {
+            color: #ff9a9e;
+            transform: scale(1.2);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e6e6e6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .channels-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .chennai-info {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Particle Container -->
+    <div id="particles-js"></div>
 
-  <!-- Welcome Overlay with dynamic gradient text -->
-  <section id="welcome-overlay" aria-label="Welcome message">
-    <h1 id="welcome-text" aria-live="polite" aria-atomic="true">Welcome to Boniphace Website</h1>
-  </section>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen">
+        <div class="logo-container">
+            <div class="logo">Welcome to Chennai Channel</div>
+            <div class="subtitle">Experience the culture of Chennai</div>
+        </div>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+    </div>
 
-  <!-- Main content with channels -->
-  <main aria-label="Channels Section" tabindex="-1">
-    <h1>Channels</h1>
-    <nav id="channels" aria-label="List of channels" role="list">
-      <!-- Channel boxes will be inserted here -->
-      <div class="channel-box color1" role="listitem" tabindex="0">Channel One</div>
-      <div class="channel-box color2" role="listitem" tabindex="0">Channel Two</div>
-      <div class="channel-box color3" role="listitem" tabindex="0">Channel Three</div>
-      <div class="channel-box color4" role="listitem" tabindex="0">Channel Four</div>
-      <div class="channel-box color5" role="listitem" tabindex="0">Channel Five</div>
-    </nav>
-  </main>
+    <!-- Main Content -->
+    <div id="main-content">
+        <div class="header">
+            <h1>Chennai WhatsApp Channel</h1>
+            <p>Stay connected with the latest updates from Chennai</p>
+        </div>
 
-  <!-- Audio element for autoplay music -->
-  <audio id="bg-music" src="https://files.catbox.moe/yzsgvh.mp3" autoplay loop preload="auto" aria-label="Background music"></audio>
+        <!-- Chennai Info Section -->
+        <div class="chennai-info">
+            <div class="chennai-card">
+                <h2>About Chennai</h2>
+                <p>Chennai, formerly known as Madras, is the capital city of Tamil Nadu, located on the Coromandel Coast of the Bay of Bengal. It is one of the largest cultural, economic and educational centers in South India.</p>
+                <p>Known as the "Detroit of India" for its automobile industry, Chennai is also famous for its rich culture, temples, and vibrant arts scene.</p>
+            </div>
+            <div class="chennai-card">
+                <h2>Chennai Highlights</h2>
+                <ul>
+                    <li>Marina Beach - Second longest urban beach in the world</li>
+                    <li>Kapaleeshwarar Temple - Ancient Shiva temple</li>
+                    <li>Fort St. George - First English fortress in India</li>
+                    <li>San Thome Basilica - Built over the tomb of St. Thomas</li>
+                    <li>Government Museum - Second oldest museum in India</li>
+                    <li>Kalakshetra Foundation - Centre for Indian classical arts</li>
+                </ul>
+            </div>
+        </div>
 
-  <script>
-    // Script to handle welcome overlay display and fade out with timing
-    document.addEventListener('DOMContentLoaded', () => {
-      const welcomeOverlay = document.getElementById('welcome-overlay');
+        <!-- WhatsApp Channel Section -->
+        <div class="whatsapp-section">
+            <div class="whatsapp-icon">
+                <i class="fab fa-whatsapp"></i>
+            </div>
+            <h2>Join Our WhatsApp Channel</h2>
+            <p>Get the latest updates, news, events, and cultural information about Chennai directly on WhatsApp. Join our channel to stay connected with the Chennai community.</p>
+            <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> Join Chennai Channel
+            </a>
+        </div>
 
-      // Duration to show welcome message (in milliseconds)
-      const welcomeDuration = 4000;
+        <!-- Channels Section -->
+        <div class="channels-container">
+            <div class="channel" style="background: rgba(255, 154, 158, 0.2);">
+                <i class="fas fa-landmark"></i>
+                <h3>Heritage & Culture</h3>
+                <p>Explore Chennai's rich heritage</p>
+            </div>
+            <div class="channel" style="background: rgba(250, 208, 196, 0.2);">
+                <i class="fas fa-utensils"></i>
+                <h3>Food & Cuisine</h3>
+                <p>Discover authentic Chennai food</p>
+            </div>
+            <div class="channel" style="background: rgba(161, 196, 253, 0.2);">
+                <i class="fas fa-calendar-alt"></i>
+                <h3>Events & Festivals</h3>
+                <p>Upcoming events in Chennai</p>
+            </div>
+            <div class="channel" style="background: rgba(152, 251, 152, 0.2);">
+                <i class="fas fa-newspaper"></i>
+                <h3>News & Updates</h3>
+                <p>Latest Chennai news</p>
+            </div>
+            <div class="channel" style="background: rgba(255, 215, 0, 0.2);">
+                <i class="fas fa-map-marked-alt"></i>
+                <h3>Places to Visit</h3>
+                <p>Top attractions in Chennai</p>
+            </div>
+        </div>
 
-      // After welcomeDuration, fade out overlay and enable scrolling
-      setTimeout(() => {
-        welcomeOverlay.classList.add('fade-out');
-        // After fade out animation completes (1s), remove overlay from DOM and enable scrolling
-        setTimeout(() => {
-          welcomeOverlay.remove();
-          document.body.classList.add('loaded');
-          // Focus main content for accessibility
-          document.querySelector('main').focus();
-        }, 1000);
-      }, welcomeDuration);
-    });
-  </script>
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2023 Chennai WhatsApp Channel. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-player">
+        <div class="music-info">
+            <i class="fas fa-music"></i>
+            <span>Now Playing: Chennai Theme</span>
+        </div>
+        <div class="music-controls">
+            <button id="play-pause-btn"><i class="fas fa-play"></i></button>
+            <button id="mute-btn"><i class="fas fa-volume-up"></i></button>
+        </div>
+    </div>
+
+    <!-- Audio Element -->
+    <audio id="background-music" loop>
+        <source src="https://files.catbox.moe/yzsgvh.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Particle.js Library -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script>
+        // Wait for the page to load
+        window.addEventListener('load', function() {
+            const welcomeScreen = document.getElementById('welcome-screen');
+            const mainContent = document.getElementById('main-content');
+            const audio = document.getElementById('background-music');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const muteBtn = document.getElementById('mute-btn');
+            const channels = document.querySelectorAll('.channel');
+            
+            // Initialize particles
+            particlesJS('particles-js', {
+                particles: {
+                    number: {
+                        value: 80,
+                        density: {
+                            enable: true,
+                            value_area: 800
+                        }
+                    },
+                    color: {
+                        value: "#ffffff"
+                    },
+                    shape: {
+                        type: "circle",
+                        stroke: {
+                            width: 0,
+                            color: "#000000"
+                        }
+                    },
+                    opacity: {
+                        value: 0.5,
+                        random: true,
+                        anim: {
+                            enable: true,
+                            speed: 1,
+                            opacity_min: 0.1,
+                            sync: false
+                        }
+                    },
+                    size: {
+                        value: 3,
+                        random: true,
+                        anim: {
+                            enable: true,
+                            speed: 2,
+                            size_min: 0.1,
+                            sync: false
+                        }
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#ffffff",
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false,
+                        attract: {
+                            enable: false,
+                            rotateX: 600,
+                            rotateY: 1200
+                        }
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: "repulse"
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: "push"
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        grab: {
+                            distance: 400,
+                            line_linked: {
+                                opacity: 1
+                            }
+                        },
+                        bubble: {
+                            distance: 400,
+                            size: 40,
+                            duration: 2,
+                            opacity: 8,
+                            speed: 3
+                        },
+                        repulse: {
+                            distance: 200,
+                            duration: 0.4
+                        },
+                        push: {
+                            particles_nb: 4
+                        },
+                        remove: {
+                            particles_nb: 2
+                        }
+                    }
+                },
+                retina_detect: true
+            });
+            
+            // Auto-play music after a delay
+            setTimeout(function() {
+                audio.volume = 0.5;
+                audio.play().catch(e => console.log("Autoplay prevented:", e));
+            }, 2000);
+            
+            // After loading animation completes, show main content
+            setTimeout(function() {
+                welcomeScreen.style.opacity = '0';
+                welcomeScreen.style.transform = 'scale(1.2)';
+                
+                setTimeout(function() {
+                    welcomeScreen.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    
+                    // Add entrance animation for channels
+                    channels.forEach((channel, index) => {
+                        setTimeout(() => {
+                            channel.style.opacity = '0';
+                            channel.style.transform = 'translateY(20px)';
+                            channel.style.transition = 'all 0.5s ease';
+                            
+                            setTimeout(() => {
+                                channel.style.opacity = '1';
+                                channel.style.transform = 'translateY(0)';
+                            }, 100);
+                        }, index * 200);
+                    });
+                }, 1500);
+            }, 3000);
+            
+            // Music controls
+            playPauseBtn.addEventListener('click', function() {
+                if (audio.paused) {
+                    audio.play();
+                    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                } else {
+                    audio.pause();
+                    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                }
+            });
+            
+            muteBtn.addEventListener('click', function() {
+                if (audio.muted) {
+                    audio.muted = false;
+                    muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                } else {
+                    audio.muted = true;
+                    muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                }
+            });
+            
+            // Channel color changing effect
+            let colorIndex = 0;
+            const colors = [
+                'rgba(255, 154, 158, 0.2)',
+                'rgba(250, 208, 196, 0.2)',
+                'rgba(161, 196, 253, 0.2)',
+                'rgba(152, 251, 152, 0.2)',
+                'rgba(255, 215, 0, 0.2)',
+                'rgba(216, 191, 216, 0.2)',
+                'rgba(173, 216, 230, 0.2)'
+            ];
+            
+            setInterval(function() {
+                channels.forEach(channel => {
+                    channel.style.background = colors[colorIndex];
+                });
+                colorIndex = (colorIndex + 1) % colors.length;
+            }, 3000);
+        });
+    </script>
 </body>
 </html>
