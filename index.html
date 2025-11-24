@@ -151,11 +151,15 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
         }
 
         .channel:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            animation: gradientShift 3s ease infinite, glow 1.5s ease-in-out infinite alternate;
         }
 
         .channel::before {
@@ -165,8 +169,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.7s;
         }
 
         .channel:hover::before {
@@ -177,23 +181,26 @@
             font-size: 3rem;
             margin-bottom: 15px;
             z-index: 2;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
 
         .channel h3 {
             font-size: 1.5rem;
             margin-bottom: 10px;
             z-index: 2;
+            text-shadow: 0 0 5px rgba(255,255,255,0.3);
         }
 
         .channel p {
             font-size: 1rem;
             color: #e6e6e6;
             z-index: 2;
+            text-shadow: 0 0 5px rgba(0,0,0,0.3);
         }
 
         .bofya-btn {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
             color: white;
             padding: 8px 20px;
             border-radius: 20px;
@@ -201,14 +208,40 @@
             margin-top: 15px;
             font-weight: 600;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             z-index: 2;
+            backdrop-filter: blur(10px);
+            text-shadow: 0 0 5px rgba(0,0,0,0.3);
         }
 
         .bofya-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(255,255,255,0.5);
         }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(255,255,255,0.3); }
+            to { box-shadow: 0 0 30px rgba(255,255,255,0.6); }
+        }
+
+        /* Individual channel animations */
+        .channel:nth-child(1) { animation-delay: 0s; }
+        .channel:nth-child(2) { animation-delay: 0.5s; }
+        .channel:nth-child(3) { animation-delay: 1s; }
+        .channel:nth-child(4) { animation-delay: 1.5s; }
+        .channel:nth-child(5) { animation-delay: 2s; }
+        .channel:nth-child(6) { animation-delay: 2.5s; }
+        .channel:nth-child(7) { animation-delay: 3s; }
+        .channel:nth-child(8) { animation-delay: 3.5s; }
+        .channel:nth-child(9) { animation-delay: 4s; }
+        .channel:nth-child(10) { animation-delay: 4.5s; }
 
         /* Contacts Section */
         .contacts-section {
@@ -220,6 +253,9 @@
             max-width: 800px;
             margin: 0 auto;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(45deg, rgba(255,107,107,0.1), rgba(78,205,196,0.1), rgba(69,183,209,0.1));
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
         }
 
         .contacts-section h2 {
@@ -230,6 +266,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
         }
 
         .contacts-grid {
@@ -239,34 +276,42 @@
         }
 
         .contact-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 25px;
             text-align: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            background: linear-gradient(45deg, rgba(255,107,107,0.2), rgba(78,205,196,0.2), rgba(69,183,209,0.2));
+            background-size: 400% 400%;
+            animation: gradientShift 12s ease infinite;
         }
 
         .contact-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px) scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+            animation: gradientShift 5s ease infinite, glow 2s ease-in-out infinite alternate;
         }
 
         .contact-card i {
             font-size: 2.5rem;
             margin-bottom: 15px;
             color: #ffcc00;
+            text-shadow: 0 0 10px rgba(255,204,0,0.5);
         }
 
         .contact-card h3 {
             font-size: 1.4rem;
             margin-bottom: 10px;
             color: #ffcc00;
+            text-shadow: 0 0 5px rgba(255,204,0,0.3);
         }
 
         .contact-card p {
             font-size: 1.2rem;
             margin-bottom: 5px;
+            text-shadow: 0 0 3px rgba(0,0,0,0.3);
         }
 
         .contact-role {
@@ -274,22 +319,26 @@
             color: #e6e6e6;
             font-style: italic;
             margin-bottom: 15px;
+            text-shadow: 0 0 3px rgba(0,0,0,0.3);
         }
 
         .contact-bofya {
             display: inline-block;
-            background: #25D366;
+            background: linear-gradient(45deg, #25D366, #128C7E);
             color: white;
             padding: 10px 20px;
             border-radius: 25px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            text-shadow: 0 0 5px rgba(0,0,0,0.3);
         }
 
         .contact-bofya:hover {
-            background: #128C7E;
-            transform: scale(1.05);
+            background: linear-gradient(45deg, #128C7E, #25D366);
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.6);
         }
 
         /* Music Player */
@@ -307,6 +356,9 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             z-index: 10;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(45deg, rgba(255,107,107,0.2), rgba(78,205,196,0.2));
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
         }
 
         .music-info {
@@ -322,11 +374,13 @@
             font-size: 1.2rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-shadow: 0 0 5px rgba(0,0,0,0.3);
         }
 
         .music-controls button:hover {
             color: #ff9a9e;
             transform: scale(1.2);
+            text-shadow: 0 0 10px rgba(255,154,158,0.5);
         }
 
         /* Responsive Design */
@@ -381,61 +435,61 @@
 
         <!-- Channels Section -->
         <div class="channels-container">
-            <div class="channel" style="background: rgba(255, 99, 132, 0.3);">
+            <div class="channel">
                 <i class="fas fa-music"></i>
                 <h3>Music Channel</h3>
                 <p>Latest hits and trending songs</p>
                 <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel" style="background: rgba(54, 162, 235, 0.3);">
+            <div class="channel">
                 <i class="fas fa-film"></i>
                 <h3>Movies Channel</h3>
                 <p>Blockbuster movies and series</p>
                 <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel" style="background: rgba(255, 206, 86, 0.3);">
+            <div class="channel">
                 <i class="fas fa-gamepad"></i>
                 <h3>Gaming Channel</h3>
                 <p>Live streams and gaming content</p>
                 <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel" style="background: rgba(75, 192, 192, 0.3);">
+            <div class="channel">
                 <i class="fas fa-newspaper"></i>
                 <h3>News Channel</h3>
                 <p>Latest news and updates</p>
                 <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel" style="background: rgba(153, 102, 255, 0.3);">
+            <div class="channel">
                 <i class="fas fa-utensils"></i>
                 <h3>Food Channel</h3>
                 <p>Recipes and cooking tutorials</p>
                 <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel" style="background: rgba(255, 159, 64, 0.3);">
+            <div class="channel">
                 <i class="fas fa-basketball-ball"></i>
                 <h3>Sports Channel</h3>
                 <p>Live matches and highlights</p>
                 <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel" style="background: rgba(255, 99, 71, 0.3);">
+            <div class="channel">
                 <i class="fas fa-laugh"></i>
                 <h3>Comedy Channel</h3>
                 <p>Funny videos and stand-up</p>
                 <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel" style="background: rgba(50, 205, 50, 0.3);">
+            <div class="channel">
                 <i class="fas fa-car"></i>
                 <h3>Auto Channel</h3>
                 <p>Car reviews and modifications</p>
                 <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel" style="background: rgba(30, 144, 255, 0.3);">
+            <div class="channel">
                 <i class="fas fa-graduation-cap"></i>
                 <h3>Education Channel</h3>
                 <p>Learning and tutorials</p>
                 <a href="https://whatsapp.com/channel/0029VaiMm7d4yltT51HS1T1G" target="_blank" class="bofya-btn">Bofya</a>
             </div>
-            <div class="channel" style="background: rgba(220, 20, 60, 0.3);">
+            <div class="channel">
                 <i class="fas fa-heart"></i>
                 <h3>Health Channel</h3>
                 <p>Fitness and wellness tips</p>
@@ -450,28 +504,28 @@
                 <div class="contact-card">
                     <i class="fas fa-user-tie"></i>
                     <h3>Boniphace M.</h3>
-                    <p>+255 789 123 456</p>
-                    <p class="contact-role">Founder & CEO</p>
+                    <p>+255794373476</p>
+                    <p class="contact-role">Channel Admin</p>
                     <a href="https://wa.me/255794373476" target="_blank" class="contact-bofya">Bofya</a>
                 </div>
                 <div class="contact-card">
                     <i class="fas fa-user-cog"></i>
-                    <h3>Sarah J.</h3>
-                    <p>+255 787 654 321</p>
-                    <p class="contact-role">Technical Director</p>
-                    <a href="https://wa.me/255794373476" target="_blank" class="contact-bofya">Bofya</a>
+                    <h3>Devine</h3>
+                    <p>+255 748 840 168</p>
+                    <p class="contact-role">Channel Admin</p>
+                    <a href="https://wa.me/255748840168" target="_blank" class="contact-bofya">Bofya</a>
                 </div>
                 <div class="contact-card">
                     <i class="fas fa-user-headset"></i>
-                    <h3>Michael K.</h3>
-                    <p>+255 785 111 222</p>
-                    <p class="contact-role">Support Manager</p>
-                    <a href="https://wa.me/255794373476" target="_blank" class="contact-bofya">Bofya</a>
+                    <h3>Yassin dk.</h3>
+                    <p>+255 621 995 482</p>
+                    <p class="contact-role">Channel Admin</p>
+                    <a href="https://wa.me/255621995482" target="_blank" class="contact-bofya">Bofya</a>
                 </div>
                 <div class="contact-card">
                     <i class="fas fa-user-edit"></i>
-                    <h3>Grace L.</h3>
-                    <p>+255 784 333 444</p>
+                    <h3>Channel Owner.</h3>
+                    <p>undefined</p>
                     <p class="contact-role">Content Manager</p>
                     <a href="https://wa.me/255794373476" target="_blank" class="contact-bofya">Bofya</a>
                 </div>
